@@ -1,0 +1,40 @@
+//Uses user-defined CarryLookAhead, Buffer
+
+CHIP CarryLookAhead4{
+	IN X[4], Y[4], Ci, CTRL;
+	OUT S[4], Co;
+
+	PARTS:
+	CarryLookAhead(x=X[0], y=Y[0], Cin=Ci, CTRL=CTRL, G=G0, P=P0, S=S[0]);
+
+	Buffer(in = Ci, out = C0);
+	// C1 = G0 + P0*C0
+	And(a = P0, b = C0, out = tmp0);
+	Or(a = G0, b = tmp0, out=C1);
+
+	CarryLookAhead(x=X[1], y=Y[1], Cin=C1, CTRL=CTRL, G=G1, P=P1, S=S[1]);
+	
+	// C2 = G1 + P1*G0 + P1*P0*C0
+	And3(a=P1, b=P0, c=C0, out = tmp1);
+	And(a=P1, b=G0, out=tmp2);
+	Or3(a=G1, b=tmp2, c=tmp1, out=C2);
+	
+	CarryLookAhead(x=X[2], y=Y[2], Cin=C2, CTRL=CTRL, G=G2, P=P2, S=S[2]);
+	
+	// C3 = G2 + P2*G1 + P2*P1*G0 + P2*P1*P0*C0
+	And4(a=P2, b=P1, c=P0, d=C0, out = tmp3);
+	And3(a=P2, b=P1, c=G0, out=tmp4);
+	And(a=P2, b=G1, out=tmp5);
+	Or4(a=G2, b=tmp5, c=tmp4, d=tmp3, out=C3);
+	
+	CarryLookAhead(x=X[3], y=Y[3], Cin=C3, CTRL=CTRL, G=G3, P=P3, S=S[3]);
+	
+	// C4 = G3 + P3*G2 + P3*P2*G1 + P3*P2*P1*G0 + P3*P2*P1*P0*C0 
+	And5(a=P3, b=P2, c=P1, d=P0, e=C0, out = tmp6);
+	And4(a=P3, b=P2, c=P1, d=G0, out=tmp7);
+	And3(a=P3, b=P2, c=G1, out=tmp8);
+	And(a=P3, b=G2, out=tmp9);
+	Or5(a=G3, b=tmp9, c=tmp8, d=tmp7, e=tmp6, out=C4);
+
+	Buffer(in = C4, out = Co);
+}

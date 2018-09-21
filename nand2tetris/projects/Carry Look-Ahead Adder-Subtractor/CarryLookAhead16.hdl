@@ -1,0 +1,13 @@
+CHIP CarryLookAhead16{
+    IN a[16], b[16], Ci;
+    OUT out[16];
+
+    PARTS:
+    CarryLookAhead4(X=a[0..3], Y=b[0..3], Ci=Ci, CTRL=Ci, S=out[0..3], Co=C4);
+
+    CarryLookAhead4(X=a[4..7], Y=b[4..7], Ci=C4, CTRL=Ci, S=out[4..7], Co=C8);
+
+    CarryLookAhead4(X=a[8..11], Y=b[8..11], Ci=C8, CTRL=Ci, S=out[8..11], Co=C12);
+
+    CarryLookAhead4(X=a[12..15], Y=b[12..15], Ci=C12, CTRL=Ci, S=out[12..15], Co=C16);
+}
