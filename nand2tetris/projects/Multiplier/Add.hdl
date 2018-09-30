@@ -1,0 +1,12 @@
+CHIP Add {
+	IN a, b, c0;
+	OUT s, c1;
+
+	PARTS:
+	Xor(a = a, b = b, out = x);
+	Xor(a = x, b = c0, out = s);
+	And(a = a, b = b, out = y);
+	Or(a = a, b = b, out = temp);
+	And(a = y, b = c0, out = z);
+	Or(a = y, b = z, out = c1);
+}

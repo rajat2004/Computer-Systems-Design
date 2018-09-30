@@ -1,0 +1,22 @@
+CHIP Multiplier{
+    IN m[8], q[8];
+    OUT P[16];
+
+    PARTS:
+    Buffer8(in=false, out=R1In);
+    Row(m=m, q=q[0], PPin=R1In, POut=P[0], ROut=R1Out);
+
+    Row(m=m, q=q[1], PPin=R1Out, POut=P[1], ROut=R2Out);
+
+    Row(m=m, q=q[2], PPin=R2Out, POut=P[2], ROut=R3Out);
+
+    Row(m=m, q=q[3], PPin=R3Out, POut=P[3], ROut=R4Out);
+
+    Row(m=m, q=q[4], PPin=R4Out, POut=P[4], ROut=R5Out);
+
+    Row(m=m, q=q[5], PPin=R5Out, POut=P[5], ROut=R6Out);
+
+    Row(m=m, q=q[6], PPin=R6Out, POut=P[6], ROut=R7Out);
+
+    Row(m=m, q=q[7], PPin=R7Out, POut=P[7], ROut=P[8..15]);
+} 

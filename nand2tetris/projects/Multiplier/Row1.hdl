@@ -1,0 +1,14 @@
+CHIP Row1{
+    IN m[8], q, PPin[8];
+    OUT ROut[9];
+
+    PARTS:
+    Unit(PPin=PPin[0], m=m[0], q=q, Cin=false, PPout=ROut[0], Cout=C1);
+    Unit(PPin=PPin[1], m=m[1], q=q, Cin=C1, PPout=ROut[1], Cout=C2);
+    Unit(PPin=PPin[2], m=m[2], q=q, Cin=C2, PPout=ROut[2], Cout=C3);
+    Unit(PPin=PPin[3], m=m[3], q=q, Cin=C3, PPout=ROut[3], Cout=C4);
+    Unit(PPin=PPin[4], m=m[4], q=q, Cin=C4, PPout=ROut[4], Cout=C5);
+    Unit(PPin=PPin[5], m=m[5], q=q, Cin=C5, PPout=ROut[5], Cout=C6);
+    Unit(PPin=PPin[6], m=m[6], q=q, Cin=C6, PPout=ROut[6], Cout=C7);
+    Unit(PPin=PPin[7], m=m[7], q=q, Cin=C7, PPout=ROut[7], Cout=R1Out[8]);
+}

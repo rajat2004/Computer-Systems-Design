@@ -1,0 +1,8 @@
+CHIP Unit{
+    IN PPin, m, q, Cin;
+    OUT PPout, Cout;
+
+    PARTS:
+    And(a=m, b=q, out=w1);
+    Add(a=PPin, b=w1, c0=Cin, s=PPout, c1=Cout);
+}

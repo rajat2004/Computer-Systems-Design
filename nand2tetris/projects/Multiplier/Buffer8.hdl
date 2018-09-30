@@ -1,0 +1,14 @@
+CHIP Buffer8{
+    IN in;
+    OUT out[8];
+
+    PARTS:
+    Buffer(in=in, out=out[0]);
+    Buffer(in=in, out=out[1]);
+    Buffer(in=in, out=out[2]);
+    Buffer(in=in, out=out[3]);
+    Buffer(in=in, out=out[4]);
+    Buffer(in=in, out=out[5]);
+    Buffer(in=in, out=out[6]);
+    Buffer(in=in, out=out[7]);
+}
