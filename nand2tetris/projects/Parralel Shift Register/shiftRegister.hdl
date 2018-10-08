@@ -1,0 +1,50 @@
+// "Parallel Shift Register"
+//   - designed for CS2310
+
+/**
+ * siL/siR - serial input
+ * soR/soL - serial output
+ * 
+ * If Shift, Load == 00 then out[t+1] = out[t]
+ *				     01 then out[t+1] = in[t]			         
+ *				     10 then shift 'left'
+ *				     11 then shift 'right'
+ */
+
+CHIP shiftRegister {
+	IN in[8], siL, siR, Shift, Load;
+	OUT out[8], soR, soL;
+
+	PARTS:
+	Mux4Way(a = out7, b = in[7], c = out6, d = siL,
+			sel[1] = Shift, sel[0] = Load, out = in7);
+	DFF(in = in7, out = out7, out = out[7], out = soL);
+
+	Mux4Way(a = out6, b = in[6], c = out5, d = out7,
+			sel[1] = Shift, sel[0] = Load, out = in6);
+	DFF(in = in6, out = out6, out = out[6]);
+
+	Mux4Way(a = out5, b = in[5], c = out4, d = out6,
+			sel[1] = Shift, sel[0] = Load, out = in5);
+	DFF(in = in5, out = out5, out = out[5]);
+
+	Mux4Way(a = out4, b = in[4], c = out3, d = out5,
+			sel[1] = Shift, sel[0] = Load, out = in4);
+	DFF(in = in4, out = out4, out = out[4]);
+
+	Mux4Way(a = out3, b = in[3], c = out2, d = out4,
+			sel[1] = Shift, sel[0] = Load, out = in3);
+	DFF(in = in3, out = out3, out = out[3]);
+
+	Mux4Way(a = out2, b = in[2], c = out1, d = out3,
+			sel[1] = Shift, sel[0] = Load, out = in2);
+	DFF(in = in2, out = out2, out = out[2]);
+
+	Mux4Way(a = out1, b = in[1], c = out0, d = out2,
+			sel[1] = Shift, sel[0] = Load, out = in1);
+	DFF(in = in1, out = out1, out = out[1]);
+
+	Mux4Way(a = out0, b = in[7], c = siR, d = out1,
+			sel[1] = Shift, sel[0] = Load, out = in0);
+	DFF(in = in0, out = out0, out = out[0], out = soR);
+}
