@@ -1,3 +1,11 @@
+// Designed for CS2300 - Computer Systems Design
+
+/**
+ * And3 gate:
+ * out = 1 if (a == 1 && b == 1 && c == 1 )
+ *       0 otherwise
+*/
+
 CHIP And3{
     IN a, b, c;
     OUT out;
