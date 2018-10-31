@@ -6,7 +6,6 @@ CHIP CarryLookAhead{
     Xor(a=y, b=CTRL, out=y1);
     
     Xor(a=x, b=y1, out=w1, out=P);
-    // Buffer(in=w1, out=P);
     Xor(a=w1, b=Cin, out=S);
     And(a=x, b=y1, out=G);
 }
