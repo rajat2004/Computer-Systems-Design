@@ -7,9 +7,8 @@ CHIP CarryLookAhead4{
 	PARTS:
 	CarryLookAhead(x=X[0], y=Y[0], Cin=Ci, CTRL=CTRL, G=G0, P=P0, S=S[0]);
 
-	Buffer(in = Ci, out = C0);
 	// C1 = G0 + P0*C0
-	And(a = P0, b = C0, out = tmp0);
+	And(a = P0, b = Ci, out = tmp0);
 	Or(a = G0, b = tmp0, out=C1);
 
 	CarryLookAhead(x=X[1], y=Y[1], Cin=C1, CTRL=CTRL, G=G1, P=P1, S=S[1]);
@@ -34,7 +33,5 @@ CHIP CarryLookAhead4{
 	And4(a=P3, b=P2, c=P1, d=G0, out=tmp7);
 	And3(a=P3, b=P2, c=G1, out=tmp8);
 	And(a=P3, b=G2, out=tmp9);
-	Or5(a=G3, b=tmp9, c=tmp8, d=tmp7, e=tmp6, out=C4);
-
-	Buffer(in = C4, out = Co);
+	Or5(a=G3, b=tmp9, c=tmp8, d=tmp7, e=tmp6, out=C4, Co);
 }
